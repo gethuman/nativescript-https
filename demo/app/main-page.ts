@@ -1,14 +1,12 @@
 import * as Https from "nativescript-https";
-import * as Observable from "@nativescript/core/data/observable";
+import {fromObject, Dialogs as dialogs, Page, EventData} from "@nativescript/core";
 import * as fs from "@nativescript/core/file-system";
-import * as dialogs from "@nativescript/core/ui/dialogs";
-import * as Page from "@nativescript/core/ui/page";
 
 let page;
 let viewModel;
-export function pageLoaded(args: Page.NavigatedData) {
-    page = args.object as Page.Page;
-    viewModel = Observable.fromObject({
+export function pageLoaded(args: EventData) {
+    page = args.object as Page;
+    viewModel = fromObject({
         enabled: false,
         progress: 0,
         currentRequest: null,
@@ -141,7 +139,7 @@ export function get404() {
     getRequest("https://mockbin.com/reque2st");
 }
 
-export function enableSSLPinning(args: Observable.EventData) {
+export function enableSSLPinning(args: EventData) {
     let dir = fs.knownFolders.currentApp().getFolder("assets");
     let certificate = dir.getFile("httpbin.org.cer").path;
     Https.enableSSLPinning({
@@ -152,14 +150,14 @@ export function enableSSLPinning(args: Observable.EventData) {
     console.log("enabled");
 }
 
-export function enableSSLPinningExpired(args: Observable.EventData) {
+export function enableSSLPinningExpired(args: EventData) {
     let dir = fs.knownFolders.currentApp().getFolder("assets");
     let certificate = dir.getFile("httpbin.org.expired.cer").path;
     Https.enableSSLPinning({ host: "httpbin.org", certificate });
     console.log("enabled");
 }
 
-export function disableSSLPinning(args: Observable.EventData) {
+export function disableSSLPinning(args: EventData) {
     Https.disableSSLPinning();
     console.log("disabled");
 }

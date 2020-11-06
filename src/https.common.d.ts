@@ -42,6 +42,7 @@ export interface HttpsResponse {
     description?: string;
     url?: string;
     failure?: any;
+    response?: any;
 }
 export interface HttpsRequest {
     nativeRequest: any;

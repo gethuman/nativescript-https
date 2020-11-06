@@ -598,8 +598,8 @@ export function createRequest(
                             });
                         } else {
                             resolve({
-                                response,
-                                content: responseBody.string(),
+                                response: response,
+                                content: JSON.parse(responseBody.string()),
                                 reason: message,
                                 statusCode,
                                 get headers() {
